@@ -1,14 +1,14 @@
 package com.dev.quickcart.order_service_api.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name="customer_order")
 @Getter
@@ -28,5 +28,10 @@ public class CustomerOrder {
     private String userId;
     @Column(name="remark",length = 750)
     private String remark;
+    @OneToMany(mappedBy = "customerOrder")
+    private Set<OrderDetails> products=new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "order_status_id")
+    private OrderStatus orderStatus;
 
 }
