@@ -12,6 +12,7 @@ import com.dev.quickcart.order_service_api.repo.CustomerOrderRepo;
 import com.dev.quickcart.order_service_api.repo.OrderStatusRepo;
 import com.dev.quickcart.order_service_api.service.CustomerOrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -79,7 +80,15 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     @Override
     public CustomerOrderPaginateDto searchAll(String searchText, int page, int size) {
-        return null;
+        return CustomerOrderPaginateDto.builder()
+                .count(
+                            customerOrderRepo.searchCount(searchText)
+                )
+                .dataList(
+                        customerOrderRepo.searchALL(searchText, PageRequest.of(page,size))
+                                .stream().map(this::toCustomerOrderResponseDto).collect(Collectors.toList())
+                )
+                .build();
     }
 
     private CustomerOrderResponseDto toCustomerOrderResponseDto(CustomerOrder customerOrder){
