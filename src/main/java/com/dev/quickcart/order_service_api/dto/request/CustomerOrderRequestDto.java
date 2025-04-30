@@ -17,6 +17,6 @@ public class CustomerOrderRequestDto {
  private Date orderDate;
  private double totalAmount;
  private String userId;
- private ArrayList<CustomerOrderRequestDto>orderDetails;
+ private ArrayList<OrderDetailRequestDto>orderDetails;
 
 }
