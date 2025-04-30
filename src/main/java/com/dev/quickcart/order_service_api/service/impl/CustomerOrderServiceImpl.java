@@ -2,6 +2,7 @@ package com.dev.quickcart.order_service_api.service.impl;
 
 import com.dev.quickcart.order_service_api.dto.request.CustomerOrderRequestDto;
 import com.dev.quickcart.order_service_api.dto.request.OrderDetailRequestDto;
+import com.dev.quickcart.order_service_api.dto.response.CustomerOrderResponseDto;
 import com.dev.quickcart.order_service_api.entity.CustomerOrder;
 import com.dev.quickcart.order_service_api.entity.OrderDetails;
 import com.dev.quickcart.order_service_api.entity.OrderStatus;
@@ -44,6 +45,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         customerOrderRepo.save(customerOrder);
 
     }
+
     private OrderDetails createOrderDetail(OrderDetailRequestDto requestDto, CustomerOrder order){
         if(requestDto==null){
             return null;
@@ -57,5 +59,13 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 .build();
 
 
+    }
+
+    @Override
+    public CustomerOrderResponseDto findOrderById(String orderId) {
+        CustomerOrder customerOrder=customerOrderRepo.findById(orderId).orElseThrow(()->new RuntimeException(String.format("Order not found with %s",orderId)));
+
+
+        return null;
     }
 }
