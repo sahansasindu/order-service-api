@@ -8,4 +8,5 @@ public interface CustomerOrderService {
 
     public void createOrder(CustomerOrderRequestDto customerOrderRequestDto);
     public CustomerOrderResponseDto findOrderById(String orderId);
+    public void deleteById(String orderId);
 }
