@@ -4,6 +4,7 @@ import com.dev.quickcart.order_service_api.dto.request.CustomerOrderRequestDto;
 import com.dev.quickcart.order_service_api.dto.request.OrderDetailRequestDto;
 import com.dev.quickcart.order_service_api.dto.response.CustomerOrderResponseDto;
 import com.dev.quickcart.order_service_api.dto.response.OrderDetailsResponseDto;
+import com.dev.quickcart.order_service_api.dto.response.paginate.CustomerOrderPaginateDto;
 import com.dev.quickcart.order_service_api.entity.CustomerOrder;
 import com.dev.quickcart.order_service_api.entity.OrderDetails;
 import com.dev.quickcart.order_service_api.entity.OrderStatus;
@@ -74,6 +75,11 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         CustomerOrder customerOrder=customerOrderRepo.findById(orderId).orElseThrow(()->new RuntimeException(String.format("Order not found with %s",orderId)));
        customerOrderRepo.delete(customerOrder);
 
+    }
+
+    @Override
+    public CustomerOrderPaginateDto searchAll(String searchText, int page, int size) {
+        return null;
     }
 
     private CustomerOrderResponseDto toCustomerOrderResponseDto(CustomerOrder customerOrder){
