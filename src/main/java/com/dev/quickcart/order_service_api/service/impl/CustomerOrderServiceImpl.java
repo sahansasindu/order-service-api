@@ -34,7 +34,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         OrderStatus orderStatus = orderStatusRepo.findByStatus("PENDING")
                 .orElseThrow(() -> new RuntimeException("Order status not found"));
 
-
         CustomerOrder customerOrder=new CustomerOrder();
         customerOrder.setOrderId(UUID.randomUUID().toString());
         customerOrder.setOrderDate(requestDto.getOrderDate());
@@ -45,6 +44,36 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         customerOrder.setOrderStatus(orderStatus);
         customerOrder.setProducts(requestDto.getOrderDetails().stream().map(e->createOrderDetail(e,customerOrder)).collect(Collectors.toSet()));
 
+        customerOrderRepo.save(customerOrder);
+
+    }
+
+    @Override
+    public void updateOrder(CustomerOrderRequestDto requestDto, String orderId) {
+        CustomerOrder customerOrder=customerOrderRepo.findById(orderId).orElseThrow(()->new RuntimeException(String.format("Order not found with %s",orderId)));
+        customerOrder.setOrderDate(requestDto.getOrderDate());
+        customerOrder.setTotalAmount(requestDto.getTotalAmount());
+        customerOrderRepo.save(customerOrder);
+
+
+    }
+
+    @Override
+    public void manageRemark(String remark, String orderId) {
+        CustomerOrder customerOrder=customerOrderRepo.findById(orderId).orElseThrow(()->new RuntimeException(String.format("Order not found with %s",orderId)));
+        customerOrder.setRemark(remark);
+        customerOrderRepo.save(customerOrder);
+
+    }
+
+    @Override
+    public void manageStatus(String status, String orderId) {
+        CustomerOrder customerOrder=customerOrderRepo.findById(orderId).orElseThrow(()->new RuntimeException(String.format("Order not found with %s",orderId)));
+
+        OrderStatus orderStatus = orderStatusRepo.findByStatus(status)
+                .orElseThrow(() -> new RuntimeException("Order status not found"));
+
+        customerOrder.setOrderStatus(orderStatus);
         customerOrderRepo.save(customerOrder);
 
     }
@@ -60,7 +89,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 .qty(requestDto.getQty())
                 .customerOrder(order)
                 .build();
-
 
     }
 
@@ -123,9 +151,5 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
                 .build();
 
     }
-
-
-
-
 
 }
