@@ -1,9 +1,8 @@
 package com.dev.quickcart.order_service_api.dto.response;
 
-import com.dev.quickcart.order_service_api.dto.request.OrderDetailRequestDto;
 import lombok.*;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class CustomerOrderResponseDto {
 
     private String orderId;
     private Date orderDate;
-    private double totalAmount;
+    private BigDecimal totalAmount;
     private String userId;
     private String remark;
     private String status;

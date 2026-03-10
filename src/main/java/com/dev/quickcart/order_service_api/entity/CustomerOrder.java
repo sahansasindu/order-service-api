@@ -6,11 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name="customer_order")
+@Entity(name = "customer_order")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,18 +19,18 @@ import java.util.Set;
 
 public class CustomerOrder {
     @Id
-    @Column(name="order_id",length = 80)
+    @Column(name = "order_id", length = 80)
     private String orderId;
-    @Column(name="order_date",nullable = false,columnDefinition ="DATETIME")
+    @Column(name = "order_date", nullable = false, columnDefinition = "DATETIME")
     private Date orderDate;
-    @Column(name="total_amount",nullable = false,precision = 10,scale = 2)
-    private double totalAmount;
-    @Column(name="user_id",nullable = false,length=80)
+    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalAmount;
+    @Column(name = "user_id", nullable = false, length = 80)
     private String userId;
-    @Column(name="remark",length = 750)
+    @Column(name = "remark", length = 750)
     private String remark;
     @OneToMany(mappedBy = "customerOrder")
-    private Set<OrderDetails> products=new HashSet<>();
+    private Set<OrderDetails> products = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "order_status_id")
     private OrderStatus orderStatus;

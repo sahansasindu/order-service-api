@@ -2,6 +2,8 @@ package com.dev.quickcart.order_service_api.dto.request;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,6 +11,6 @@ import lombok.*;
 public class OrderDetailRequestDto {
     private String productId;
     private int qty;
-    private double unitprice;
-    private double discount;
+    private BigDecimal unitprice;
+    private BigDecimal discount;
 }
