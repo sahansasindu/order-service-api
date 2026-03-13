@@ -16,7 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -27,13 +28,13 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     private final OrderStatusRepo orderStatusRepo;
 
     @Override
+    @Transactional
     public void createOrder(CustomerOrderRequestDto requestDto) {
 
         OrderStatus orderStatus = orderStatusRepo.findByStatus("PENDING")
                 .orElseThrow(() -> new EntryNotFoundException("Order status not found"));
 
         CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setOrderId(UUID.randomUUID().toString());
         customerOrder.setOrderDate(requestDto.getOrderDate());
         customerOrder.setRemark("");
         customerOrder.setTotalAmount(requestDto.getTotalAmount());
@@ -48,6 +49,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
+    @Transactional
     public void updateOrder(CustomerOrderRequestDto requestDto, String orderId) {
         CustomerOrder customerOrder = customerOrderRepo.findById(orderId)
                 .orElseThrow(() -> new EntryNotFoundException(String.format("Order not found with %s", orderId)));
@@ -58,6 +60,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
+    @Transactional
     public void manageRemark(String remark, String orderId) {
         CustomerOrder customerOrder = customerOrderRepo.findById(orderId)
                 .orElseThrow(() -> new EntryNotFoundException(String.format("Order not found with %s", orderId)));
@@ -67,6 +70,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
+    @Transactional
     public void manageStatus(String status, String orderId) {
         CustomerOrder customerOrder = customerOrderRepo.findById(orderId)
                 .orElseThrow(() -> new EntryNotFoundException(String.format("Order not found with %s", orderId)));
@@ -84,7 +88,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
             return null;
         }
         return OrderDetails.builder()
-                .detailId(UUID.randomUUID().toString())
+                .productId(requestDto.getProductId())
                 .unitPrice(requestDto.getUnitprice())
                 .discount(requestDto.getDiscount())
                 .qty(requestDto.getQty())

@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 
 public class OrderDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "detail_id", length = 80)
     private String detailId;
     @Column(name = "product_id", nullable = false, length = 80)

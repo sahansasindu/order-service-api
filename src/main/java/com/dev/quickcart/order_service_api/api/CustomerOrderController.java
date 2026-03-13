@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/customer-orders")
+@RequestMapping("/order-service-api/api/v1/customer-orders")
 @RequiredArgsConstructor
 public class CustomerOrderController {
 
@@ -78,7 +78,8 @@ public class CustomerOrderController {
         }
 
         @GetMapping("/visitors/search-all")
-        private ResponseEntity<StandardResponseDto> searchAll(@RequestParam String searchText, @RequestParam int page,
+        private ResponseEntity<StandardResponseDto> searchAll(
+                        @RequestParam(required = false, defaultValue = "") String searchText, @RequestParam int page,
                         @RequestParam int size) {
                 return new ResponseEntity<>(
                                 new StandardResponseDto(

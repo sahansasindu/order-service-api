@@ -19,6 +19,7 @@ import java.util.Set;
 
 public class CustomerOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id", length = 80)
     private String orderId;
     @Column(name = "order_date", nullable = false, columnDefinition = "DATETIME")
@@ -29,7 +30,7 @@ public class CustomerOrder {
     private String userId;
     @Column(name = "remark", length = 750)
     private String remark;
-    @OneToMany(mappedBy = "customerOrder")
+    @OneToMany(mappedBy = "customerOrder", cascade = CascadeType.ALL)
     private Set<OrderDetails> products = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "order_status_id")

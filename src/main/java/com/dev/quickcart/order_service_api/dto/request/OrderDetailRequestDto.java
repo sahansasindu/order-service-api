@@ -1,5 +1,6 @@
 package com.dev.quickcart.order_service_api.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -10,7 +11,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class OrderDetailRequestDto {
     private String productId;
+    
+    @JsonProperty("quantity")
     private int qty;
+    
+    @JsonProperty("price")
     private BigDecimal unitprice;
+    
     private BigDecimal discount;
 }
