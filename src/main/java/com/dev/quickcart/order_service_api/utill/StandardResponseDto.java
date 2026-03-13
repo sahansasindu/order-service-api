@@ -14,5 +14,5 @@ import java.util.Date;
 public class StandardResponseDto {
     private int status;
     private String message;
-    private Object date;
+    private Object data;
 }

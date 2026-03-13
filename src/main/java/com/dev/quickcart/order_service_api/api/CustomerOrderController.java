@@ -41,7 +41,7 @@ public class CustomerOrderController {
                 customerOrderService.updateOrder(requestDto, id);
                 return new ResponseEntity<>(
                                 new StandardResponseDto(
-                                                200, "Customer order has been created", null
+                                                200, "Customer order has been updated", null
 
                                 ), HttpStatus.OK);
 
@@ -52,7 +52,7 @@ public class CustomerOrderController {
                 customerOrderService.manageRemark(remark, id);
                 return new ResponseEntity<>(
                                 new StandardResponseDto(
-                                                200, "Customer order has been created", null
+                                                200, "Order remark has been updated", null
 
                                 ), HttpStatus.OK);
         }
@@ -62,7 +62,7 @@ public class CustomerOrderController {
                 customerOrderService.manageStatus(status, id);
                 return new ResponseEntity<>(
                                 new StandardResponseDto(
-                                                200, "Customer order has been created", null
+                                                200, "Customer order status has been updated", null
 
                                 ), HttpStatus.OK);
         }
@@ -72,9 +72,9 @@ public class CustomerOrderController {
                 customerOrderService.deleteById(id);
                 return new ResponseEntity<>(
                                 new StandardResponseDto(
-                                                204, "Customer order has been deleted", null
+                                                200, "Customer order has been successfully deleted", null
 
-                                ), HttpStatus.NO_CONTENT);
+                                ), HttpStatus.OK);
         }
 
         @GetMapping("/visitors/search-all")
