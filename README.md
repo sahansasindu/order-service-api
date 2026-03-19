@@ -1,12 +1,14 @@
-A RESTful microservice built to manage orders within a distributed system. Handles order creation, updates, tracking, and status management
-# Product Service API
+# Order Service API
 
 ## Overview
 
 The **Order Service** is responsible for managing all Order-related operations in the system.
 
-It is built using **Spring boot** and exposes RESTful APIs for handling orders
-
+It is built using **Spring boot** and exposes RESTful APIs for handling
+- order creation
+- order updates
+- order tracking
+- order status management
 
 The service uses **MySQL** as its database.
 
