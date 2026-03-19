@@ -42,6 +42,9 @@ Used as an **Identity and Access Management (IAM)** solution.
 - Handles authentication and authorization
 - Provides secure login and token-based access
 
+<img width="1659" height="757" alt="image" src="https://github.com/user-attachments/assets/1caca8f1-bb11-4b7c-82d2-f18abb8a9881" />
+
+
 ---
 
 ### Eureka Server (https://github.com/sahansasindu/eureka-service-api)
