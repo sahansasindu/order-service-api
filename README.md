@@ -53,6 +53,9 @@ Used as a **Service Registry**.
 - Registers all microservices
 - Enables dynamic service discovery
 
+<img width="1657" height="903" alt="image" src="https://github.com/user-attachments/assets/0202058e-0239-4023-99c8-b292cfac02f5" />
+
+
 ---
 
 ### API Gateway (https://github.com/sahansasindu/quickcart_gateway)
