@@ -52,7 +52,7 @@ public class JwtService {
                     .build().parseClaimsJws(token);
 
             Claims body = claimsJws.getBody();
-            return body.getSubject(); // "sub" claim contains the user ID in standard JWTs
+            return body.getSubject();
 
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);

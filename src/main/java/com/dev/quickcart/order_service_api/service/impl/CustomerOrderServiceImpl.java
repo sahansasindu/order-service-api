@@ -36,13 +36,13 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     public void createOrder(CustomerOrderRequestDto requestDto,String tokenHeader) {
 
         try {
-        // Extract user ID from token
+
         String userId = getUserIdFromToken(tokenHeader);
 
         OrderStatus orderStatus = orderStatusRepo.findByStatus("PENDING")
                 .orElseThrow(() -> new EntryNotFoundException("Order status not found"));
 
-        // Calculate total amount from order details for security
+
         double calculatedTotal = calculateOrderTotal(requestDto.getOrderDetails());
 
         CustomerOrder customerOrder = new CustomerOrder();
