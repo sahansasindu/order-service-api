@@ -14,6 +14,6 @@ public class OrderDetailsResponseDto {
     private String detailId;
     private String productId;
     private int qty;
-    private BigDecimal unitprice;
-    private BigDecimal discount;
+    private double unitprice;
+    private double discount;
 }

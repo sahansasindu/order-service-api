@@ -16,7 +16,7 @@ public class OrderDetailRequestDto {
     private int qty;
     
     @JsonProperty("price")
-    private BigDecimal unitprice;
+    private double unitprice;
     
-    private BigDecimal discount;
+    private double discount;
 }

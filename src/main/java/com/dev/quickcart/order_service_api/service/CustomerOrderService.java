@@ -7,7 +7,7 @@ import com.dev.quickcart.order_service_api.dto.response.paginate.CustomerOrderPa
 public interface CustomerOrderService {
 
 
-    public void createOrder(CustomerOrderRequestDto customerOrderRequestDto);
+    public void createOrder(CustomerOrderRequestDto customerOrderRequestDto,String tokenHeader);
     public void updateOrder(CustomerOrderRequestDto requestDto,String orderId);
     public void manageRemark(String remark,String orderId);
     public void manageStatus(String status,String orderId);

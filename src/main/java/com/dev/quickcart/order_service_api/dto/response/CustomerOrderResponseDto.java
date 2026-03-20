@@ -16,7 +16,7 @@ public class CustomerOrderResponseDto {
 
     private String orderId;
     private Date orderDate;
-    private BigDecimal totalAmount;
+    private double totalAmount;
     private String userId;
     private String remark;
     private String status;

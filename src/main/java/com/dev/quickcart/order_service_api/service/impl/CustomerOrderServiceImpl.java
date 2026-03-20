@@ -18,42 +18,86 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 
     private final CustomerOrderRepo customerOrderRepo;
     private final OrderStatusRepo orderStatusRepo;
+    private final JwtService jwtService;
 
     @Override
     @Transactional
-    public void createOrder(CustomerOrderRequestDto requestDto) {
+    public void createOrder(CustomerOrderRequestDto requestDto,String tokenHeader) {
+
+        try {
+        // Extract user ID from token
+        String userId = getUserIdFromToken(tokenHeader);
 
         OrderStatus orderStatus = orderStatusRepo.findByStatus("PENDING")
                 .orElseThrow(() -> new EntryNotFoundException("Order status not found"));
 
+        // Calculate total amount from order details for security
+        double calculatedTotal = calculateOrderTotal(requestDto.getOrderDetails());
+
         CustomerOrder customerOrder = new CustomerOrder();
-        customerOrder.setOrderDate(requestDto.getOrderDate());
+        customerOrder.setOrderDate(new Date());
         customerOrder.setRemark("");
-        customerOrder.setTotalAmount(requestDto.getTotalAmount());
-        customerOrder.setUserId(requestDto.getUserId());
+        customerOrder.setTotalAmount(calculatedTotal);
+        customerOrder.setUserId(userId);
 
         customerOrder.setOrderStatus(orderStatus);
         customerOrder.setProducts(requestDto.getOrderDetails().stream().map(e -> createOrderDetail(e, customerOrder))
                 .collect(Collectors.toSet()));
 
         customerOrderRepo.save(customerOrder);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create order: " + e.getMessage(), e);
+        }
 
     }
+
+    private String getUserIdFromToken(String tokenHeader) {
+        try {
+            // Validate token header
+            if (tokenHeader == null || tokenHeader.trim().isEmpty()) {
+                throw new IllegalArgumentException("Authorization token is required");
+            }
+            
+            String token = tokenHeader;
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+            
+            // Extract user ID from JWT token
+            return jwtService.getUserId(token);
+
+        } catch (Exception e) {
+            throw new IllegalStateException("Invalid or expired token", e);
+        }
+    }
+
+    // Method to calculate total amount from order details
+    private double calculateOrderTotal(List<OrderDetailRequestDto> orderDetails) {
+        double cost = 0;
+        for (OrderDetailRequestDto d : orderDetails) {
+            cost += d.getUnitprice() - d.getDiscount();
+        }
+        return cost;
+    }
+
 
     @Override
     @Transactional
     public void updateOrder(CustomerOrderRequestDto requestDto, String orderId) {
         CustomerOrder customerOrder = customerOrderRepo.findById(orderId)
                 .orElseThrow(() -> new EntryNotFoundException(String.format("Order not found with %s", orderId)));
-        customerOrder.setOrderDate(requestDto.getOrderDate());
+        customerOrder.setOrderDate(new Date());
         customerOrder.setTotalAmount(requestDto.getTotalAmount());
         customerOrderRepo.save(customerOrder);
 

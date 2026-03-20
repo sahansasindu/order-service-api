@@ -16,9 +16,7 @@ import java.util.Date;
 
 public class CustomerOrderRequestDto {
 
-    private Date orderDate;
-    private BigDecimal totalAmount;
-    private String userId;
+    private double totalAmount;
     private ArrayList<OrderDetailRequestDto> orderDetails;
 
 }

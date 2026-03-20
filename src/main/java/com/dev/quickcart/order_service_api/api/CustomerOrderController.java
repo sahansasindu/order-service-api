@@ -16,8 +16,9 @@ public class CustomerOrderController {
         private final CustomerOrderService customerOrderService;
 
         @PostMapping("/business")
-        private ResponseEntity<StandardResponseDto> create(@RequestBody CustomerOrderRequestDto requestDto) {
-                customerOrderService.createOrder(requestDto);
+        private ResponseEntity<StandardResponseDto> create(@RequestBody CustomerOrderRequestDto requestDto,
+                                                           @RequestHeader("Authorization") String tokenHeader) {
+                customerOrderService.createOrder(requestDto,tokenHeader);
                 return new ResponseEntity<>(
                                 new StandardResponseDto(
                                                 201, "Customer order has been created", null
