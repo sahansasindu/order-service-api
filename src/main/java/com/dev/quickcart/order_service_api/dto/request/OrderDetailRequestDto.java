@@ -1,9 +1,9 @@
 package com.dev.quickcart.order_service_api.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -11,7 +11,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class OrderDetailRequestDto {
     private String productId;
+    
+    @JsonProperty("quantity")
     private int qty;
+    
+    @JsonProperty("price")
     private double unitprice;
+    
     private double discount;
 }
